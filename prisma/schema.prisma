@@ -1,0 +1,42 @@
+datasource db {
+  provider = "postgresql"
+}
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  password        String
+  name            String
+  avatarUrl       String?
+  bio             String?
+  nativeLanguage  String    
+  targetLanguage  String    
+  level           String    @default("Beginner") 
+
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Message {
+  id          Int      @id @default(autoincrement())
+  content     String   
+  isImage     Boolean  @default(false)
+  
+  correction  String?  
+
+  createdAt   DateTime @default(now())
+
+  senderId    Int
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  
+  receiverId  Int
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
