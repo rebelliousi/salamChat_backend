@@ -5,6 +5,26 @@ import { PrismaService } from '../prisma/prisma.service';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
+  async getMe(userId: number) {
+    return this.prisma.user.findUnique({ where: { id: userId } });
+  }
+
+  // 2. Profil bilgilerini güncelle
+  async updateProfile(userId: number, data: any) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: data,
+    });
+  }
+
+  // 3. Avatar URL'sini veritabanına kaydet
+  async updateAvatar(userId: number, avatarUrl: string) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { avatarUrl },
+    });
+  }
+
   async findMatches(userId: number) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
 

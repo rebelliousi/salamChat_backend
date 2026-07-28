@@ -38,6 +38,7 @@ export type UserSumAggregateOutputType = {
 
 export type UserMinAggregateOutputType = {
   id: number | null
+  username: string | null
   phoneNumber: string | null
   name: string | null
   bio: string | null
@@ -55,6 +56,7 @@ export type UserMinAggregateOutputType = {
 
 export type UserMaxAggregateOutputType = {
   id: number | null
+  username: string | null
   phoneNumber: string | null
   name: string | null
   bio: string | null
@@ -72,6 +74,7 @@ export type UserMaxAggregateOutputType = {
 
 export type UserCountAggregateOutputType = {
   id: number
+  username: number
   phoneNumber: number
   name: number
   bio: number
@@ -101,6 +104,7 @@ export type UserSumAggregateInputType = {
 
 export type UserMinAggregateInputType = {
   id?: true
+  username?: true
   phoneNumber?: true
   name?: true
   bio?: true
@@ -118,6 +122,7 @@ export type UserMinAggregateInputType = {
 
 export type UserMaxAggregateInputType = {
   id?: true
+  username?: true
   phoneNumber?: true
   name?: true
   bio?: true
@@ -135,6 +140,7 @@ export type UserMaxAggregateInputType = {
 
 export type UserCountAggregateInputType = {
   id?: true
+  username?: true
   phoneNumber?: true
   name?: true
   bio?: true
@@ -239,6 +245,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UserGroupByOutputType = {
   id: number
+  username: string | null
   phoneNumber: string
   name: string
   bio: string | null
@@ -279,6 +286,7 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
+  username?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
@@ -300,6 +308,7 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  username?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -321,6 +330,7 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  username?: string
   phoneNumber?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
@@ -341,10 +351,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   receivedMessages?: Prisma.MessageListRelationFilter
   blockedUsers?: Prisma.BlockListRelationFilter
   blockedBy?: Prisma.BlockListRelationFilter
-}, "id" | "phoneNumber">
+}, "id" | "username" | "phoneNumber">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  username?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -370,6 +381,7 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
+  username?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneNumber?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -386,6 +398,7 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -407,6 +420,7 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -427,6 +441,7 @@ export type UserUncheckedCreateInput = {
 }
 
 export type UserUpdateInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -448,6 +463,7 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -469,6 +485,7 @@ export type UserUncheckedUpdateInput = {
 
 export type UserCreateManyInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -485,6 +502,7 @@ export type UserCreateManyInput = {
 }
 
 export type UserUpdateManyMutationInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -502,6 +520,7 @@ export type UserUpdateManyMutationInput = {
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -519,6 +538,7 @@ export type UserUncheckedUpdateManyInput = {
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
@@ -541,6 +561,7 @@ export type UserAvgOrderByAggregateInput = {
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
@@ -558,6 +579,7 @@ export type UserMaxOrderByAggregateInput = {
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
@@ -583,12 +605,12 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -672,6 +694,7 @@ export type UserUpdateOneRequiredWithoutBlockedByNestedInput = {
 }
 
 export type UserCreateWithoutSentMessagesInput = {
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -692,6 +715,7 @@ export type UserCreateWithoutSentMessagesInput = {
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -716,6 +740,7 @@ export type UserCreateOrConnectWithoutSentMessagesInput = {
 }
 
 export type UserCreateWithoutReceivedMessagesInput = {
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -736,6 +761,7 @@ export type UserCreateWithoutReceivedMessagesInput = {
 
 export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -771,6 +797,7 @@ export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
 }
 
 export type UserUpdateWithoutSentMessagesInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -791,6 +818,7 @@ export type UserUpdateWithoutSentMessagesInput = {
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -821,6 +849,7 @@ export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
 }
 
 export type UserUpdateWithoutReceivedMessagesInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -841,6 +870,7 @@ export type UserUpdateWithoutReceivedMessagesInput = {
 
 export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -860,6 +890,7 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
 }
 
 export type UserCreateWithoutBlockedUsersInput = {
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -880,6 +911,7 @@ export type UserCreateWithoutBlockedUsersInput = {
 
 export type UserUncheckedCreateWithoutBlockedUsersInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -904,6 +936,7 @@ export type UserCreateOrConnectWithoutBlockedUsersInput = {
 }
 
 export type UserCreateWithoutBlockedByInput = {
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -924,6 +957,7 @@ export type UserCreateWithoutBlockedByInput = {
 
 export type UserUncheckedCreateWithoutBlockedByInput = {
   id?: number
+  username?: string | null
   phoneNumber: string
   name: string
   bio?: string | null
@@ -959,6 +993,7 @@ export type UserUpdateToOneWithWhereWithoutBlockedUsersInput = {
 }
 
 export type UserUpdateWithoutBlockedUsersInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -979,6 +1014,7 @@ export type UserUpdateWithoutBlockedUsersInput = {
 
 export type UserUncheckedUpdateWithoutBlockedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1009,6 +1045,7 @@ export type UserUpdateToOneWithWhereWithoutBlockedByInput = {
 }
 
 export type UserUpdateWithoutBlockedByInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1029,6 +1066,7 @@ export type UserUpdateWithoutBlockedByInput = {
 
 export type UserUncheckedUpdateWithoutBlockedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1107,6 +1145,7 @@ export type UserCountOutputTypeCountBlockedByArgs<ExtArgs extends runtime.Types.
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  username?: boolean
   phoneNumber?: boolean
   name?: boolean
   bio?: boolean
@@ -1129,6 +1168,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  username?: boolean
   phoneNumber?: boolean
   name?: boolean
   bio?: boolean
@@ -1146,6 +1186,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  username?: boolean
   phoneNumber?: boolean
   name?: boolean
   bio?: boolean
@@ -1163,6 +1204,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectScalar = {
   id?: boolean
+  username?: boolean
   phoneNumber?: boolean
   name?: boolean
   bio?: boolean
@@ -1178,7 +1220,7 @@ export type UserSelectScalar = {
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "name" | "bio" | "age" | "gender" | "nativeLanguage" | "targetLanguage" | "level" | "avatarUrl" | "isOnline" | "lastSeen" | "isVerified" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "phoneNumber" | "name" | "bio" | "age" | "gender" | "nativeLanguage" | "targetLanguage" | "level" | "avatarUrl" | "isOnline" | "lastSeen" | "isVerified" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
@@ -1199,6 +1241,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    username: string | null
     phoneNumber: string
     name: string
     bio: string | null
@@ -1640,6 +1683,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
+  readonly username: Prisma.FieldRef<"User", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
