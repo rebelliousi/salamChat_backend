@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common'; // 1. Bunu ekle (Veri kontrolü için)
-import 'dotenv/config'; // 2. BUNU EKLE ( .env dosyasını okuması için ŞART! )
+import { ValidationPipe } from '@nestjs/common';
+import 'dotenv/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
