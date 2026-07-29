@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
-import { VerifyOtpDto } from './dto/verify-otp.dto';
+import { VerifyOtpDto } from '../dto/verify-otp.dto';
 
 @Injectable()
 export class AuthService {

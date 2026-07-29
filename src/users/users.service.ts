@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UpdateProfileDto } from 'src/dto/update-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -9,15 +10,13 @@ export class UsersService {
     return this.prisma.user.findUnique({ where: { id: userId } });
   }
 
-  // 2. Profil bilgilerini güncelle
-  async updateProfile(userId: number, data: any) {
+  async updateProfile(userId: number, dto: UpdateProfileDto) {
     return this.prisma.user.update({
       where: { id: userId },
-      data: data,
+      data: dto,
     });
   }
 
-  // 3. Avatar URL'sini veritabanına kaydet
   async updateAvatar(userId: number, avatarUrl: string) {
     return this.prisma.user.update({
       where: { id: userId },
