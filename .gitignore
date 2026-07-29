@@ -63,3 +63,4 @@ dist/
 .env
 pnpm-lock.yaml
 npm-debug.log
+uploads/

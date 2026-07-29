@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
@@ -41,8 +45,28 @@ export class AuthService {
     let user = await this.prisma.user.findUnique({ where: { phoneNumber } });
 
     if (!user) {
+      if (
+        !userData.name ||
+        !userData.nativeLanguage ||
+        !userData.targetLanguage ||
+        !userData.level
+      ) {
+        throw new BadRequestException(
+          'Profile information is required for new users',
+        );
+      }
       user = await this.prisma.user.create({
-        data: { phoneNumber, ...userData, isVerified: true },
+        data: {
+          phoneNumber,
+          name: userData.name,
+          nativeLanguage: userData.nativeLanguage,
+          targetLanguage: userData.targetLanguage,
+          level: userData.level,
+          bio: userData.bio,
+          age: userData.age,
+          gender: userData.gender,
+          isVerified: true,
+        },
       });
     }
 
