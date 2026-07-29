@@ -8,6 +8,7 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -15,6 +16,7 @@ import { extname } from 'path';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateProfileDto } from 'src/dto/update-profile.dto';
+import { MatchFilterDto } from 'src/dto/match-filter.dto';
 
 interface AuthenticatedRequest {
   user: {
@@ -62,7 +64,10 @@ export class UsersController {
   }
 
   @Get('matches')
-  getMatches(@Request() req: AuthenticatedRequest) {
-    return this.usersService.findMatches(req.user.userId);
+  getMatches(
+    @Request() req: AuthenticatedRequest,
+    @Query() filters: MatchFilterDto,
+  ) {
+    return this.usersService.findMatches(req.user.userId, filters);
   }
 }
