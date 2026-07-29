@@ -14,6 +14,7 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UpdateProfileDto } from 'src/dto/update-profile.dto';
 
 interface AuthenticatedRequest {
   user: {
@@ -31,9 +32,12 @@ export class UsersController {
     return this.usersService.getMe(req.user.userId);
   }
 
-  @Patch('update')
-  updateProfile(@Request() req: AuthenticatedRequest, @Body() data: any) {
-    return this.usersService.updateProfile(req.user.userId, data);
+  @Patch('profile')
+  updateProfile(
+    @Request() req: AuthenticatedRequest,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return this.usersService.updateProfile(req.user.userId, dto);
   }
 
   @Post('upload-avatar')
