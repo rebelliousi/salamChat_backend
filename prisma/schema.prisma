@@ -25,6 +25,8 @@ model User {
   lastSeen        DateTime  @default(now())
   sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
+    correctedMessages Message[] @relation("MessageCorrections")
+
 
 
    isVerified      Boolean   @default(false)
@@ -38,7 +40,6 @@ model Message {
   id              Int       @id @default(autoincrement())
   content         String
   isImage         Boolean   @default(false)
-  correction      String?   
   isPinned        Boolean   @default(false)
   
   parentId        Int?
@@ -50,6 +51,11 @@ model Message {
   receiverId      Int
   receiver        User      @relation("ReceivedMessages", fields: [receiverId], references: [id])
   createdAt       DateTime  @default(now())
+
+  correction String?
+
+  correctedById Int?
+  correctedBy   User? @relation("MessageCorrections", fields: [correctedById], references: [id])
 }
 model Block {
   id          Int      @id @default(autoincrement())

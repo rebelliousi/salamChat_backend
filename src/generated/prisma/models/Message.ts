@@ -31,6 +31,7 @@ export type MessageAvgAggregateOutputType = {
   parentId: number | null
   senderId: number | null
   receiverId: number | null
+  correctedById: number | null
 }
 
 export type MessageSumAggregateOutputType = {
@@ -38,42 +39,46 @@ export type MessageSumAggregateOutputType = {
   parentId: number | null
   senderId: number | null
   receiverId: number | null
+  correctedById: number | null
 }
 
 export type MessageMinAggregateOutputType = {
   id: number | null
   content: string | null
   isImage: boolean | null
-  correction: string | null
   isPinned: boolean | null
   parentId: number | null
   senderId: number | null
   receiverId: number | null
   createdAt: Date | null
+  correction: string | null
+  correctedById: number | null
 }
 
 export type MessageMaxAggregateOutputType = {
   id: number | null
   content: string | null
   isImage: boolean | null
-  correction: string | null
   isPinned: boolean | null
   parentId: number | null
   senderId: number | null
   receiverId: number | null
   createdAt: Date | null
+  correction: string | null
+  correctedById: number | null
 }
 
 export type MessageCountAggregateOutputType = {
   id: number
   content: number
   isImage: number
-  correction: number
   isPinned: number
   parentId: number
   senderId: number
   receiverId: number
   createdAt: number
+  correction: number
+  correctedById: number
   _all: number
 }
 
@@ -83,6 +88,7 @@ export type MessageAvgAggregateInputType = {
   parentId?: true
   senderId?: true
   receiverId?: true
+  correctedById?: true
 }
 
 export type MessageSumAggregateInputType = {
@@ -90,42 +96,46 @@ export type MessageSumAggregateInputType = {
   parentId?: true
   senderId?: true
   receiverId?: true
+  correctedById?: true
 }
 
 export type MessageMinAggregateInputType = {
   id?: true
   content?: true
   isImage?: true
-  correction?: true
   isPinned?: true
   parentId?: true
   senderId?: true
   receiverId?: true
   createdAt?: true
+  correction?: true
+  correctedById?: true
 }
 
 export type MessageMaxAggregateInputType = {
   id?: true
   content?: true
   isImage?: true
-  correction?: true
   isPinned?: true
   parentId?: true
   senderId?: true
   receiverId?: true
   createdAt?: true
+  correction?: true
+  correctedById?: true
 }
 
 export type MessageCountAggregateInputType = {
   id?: true
   content?: true
   isImage?: true
-  correction?: true
   isPinned?: true
   parentId?: true
   senderId?: true
   receiverId?: true
   createdAt?: true
+  correction?: true
+  correctedById?: true
   _all?: true
 }
 
@@ -219,12 +229,13 @@ export type MessageGroupByOutputType = {
   id: number
   content: string
   isImage: boolean
-  correction: string | null
   isPinned: boolean
   parentId: number | null
   senderId: number
   receiverId: number
   createdAt: Date
+  correction: string | null
+  correctedById: number | null
   _count: MessageCountAggregateOutputType | null
   _avg: MessageAvgAggregateOutputType | null
   _sum: MessageSumAggregateOutputType | null
@@ -254,32 +265,36 @@ export type MessageWhereInput = {
   id?: Prisma.IntFilter<"Message"> | number
   content?: Prisma.StringFilter<"Message"> | string
   isImage?: Prisma.BoolFilter<"Message"> | boolean
-  correction?: Prisma.StringNullableFilter<"Message"> | string | null
   isPinned?: Prisma.BoolFilter<"Message"> | boolean
   parentId?: Prisma.IntNullableFilter<"Message"> | number | null
   senderId?: Prisma.IntFilter<"Message"> | number
   receiverId?: Prisma.IntFilter<"Message"> | number
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
+  correction?: Prisma.StringNullableFilter<"Message"> | string | null
+  correctedById?: Prisma.IntNullableFilter<"Message"> | number | null
   parentMessage?: Prisma.XOR<Prisma.MessageNullableScalarRelationFilter, Prisma.MessageWhereInput> | null
   replies?: Prisma.MessageListRelationFilter
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   receiver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  correctedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type MessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   isImage?: Prisma.SortOrder
-  correction?: Prisma.SortOrderInput | Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  correction?: Prisma.SortOrderInput | Prisma.SortOrder
+  correctedById?: Prisma.SortOrderInput | Prisma.SortOrder
   parentMessage?: Prisma.MessageOrderByWithRelationInput
   replies?: Prisma.MessageOrderByRelationAggregateInput
   sender?: Prisma.UserOrderByWithRelationInput
   receiver?: Prisma.UserOrderByWithRelationInput
+  correctedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -289,28 +304,31 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   content?: Prisma.StringFilter<"Message"> | string
   isImage?: Prisma.BoolFilter<"Message"> | boolean
-  correction?: Prisma.StringNullableFilter<"Message"> | string | null
   isPinned?: Prisma.BoolFilter<"Message"> | boolean
   parentId?: Prisma.IntNullableFilter<"Message"> | number | null
   senderId?: Prisma.IntFilter<"Message"> | number
   receiverId?: Prisma.IntFilter<"Message"> | number
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
+  correction?: Prisma.StringNullableFilter<"Message"> | string | null
+  correctedById?: Prisma.IntNullableFilter<"Message"> | number | null
   parentMessage?: Prisma.XOR<Prisma.MessageNullableScalarRelationFilter, Prisma.MessageWhereInput> | null
   replies?: Prisma.MessageListRelationFilter
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   receiver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  correctedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type MessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   isImage?: Prisma.SortOrder
-  correction?: Prisma.SortOrderInput | Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  correction?: Prisma.SortOrderInput | Prisma.SortOrder
+  correctedById?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MessageCountOrderByAggregateInput
   _avg?: Prisma.MessageAvgOrderByAggregateInput
   _max?: Prisma.MessageMaxOrderByAggregateInput
@@ -325,61 +343,66 @@ export type MessageScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Message"> | number
   content?: Prisma.StringWithAggregatesFilter<"Message"> | string
   isImage?: Prisma.BoolWithAggregatesFilter<"Message"> | boolean
-  correction?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
   isPinned?: Prisma.BoolWithAggregatesFilter<"Message"> | boolean
   parentId?: Prisma.IntNullableWithAggregatesFilter<"Message"> | number | null
   senderId?: Prisma.IntWithAggregatesFilter<"Message"> | number
   receiverId?: Prisma.IntWithAggregatesFilter<"Message"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
+  correction?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
+  correctedById?: Prisma.IntNullableWithAggregatesFilter<"Message"> | number | null
 }
 
 export type MessageCreateInput = {
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   createdAt?: Date | string
+  correction?: string | null
   parentMessage?: Prisma.MessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.MessageCreateNestedManyWithoutParentMessageInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   receiver: Prisma.UserCreateNestedOneWithoutReceivedMessagesInput
+  correctedBy?: Prisma.UserCreateNestedOneWithoutCorrectedMessagesInput
 }
 
 export type MessageUncheckedCreateInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   senderId: number
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
   replies?: Prisma.MessageUncheckedCreateNestedManyWithoutParentMessageInput
 }
 
 export type MessageUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentMessage?: Prisma.MessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.MessageUpdateManyWithoutParentMessageNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+  correctedBy?: Prisma.UserUpdateOneWithoutCorrectedMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   replies?: Prisma.MessageUncheckedUpdateManyWithoutParentMessageNestedInput
 }
 
@@ -387,32 +410,34 @@ export type MessageCreateManyInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   senderId: number
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
 }
 
 export type MessageUpdateManyMutationInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type MessageUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type MessageListRelationFilter = {
@@ -434,12 +459,13 @@ export type MessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   isImage?: Prisma.SortOrder
-  correction?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  correction?: Prisma.SortOrder
+  correctedById?: Prisma.SortOrder
 }
 
 export type MessageAvgOrderByAggregateInput = {
@@ -447,30 +473,33 @@ export type MessageAvgOrderByAggregateInput = {
   parentId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
+  correctedById?: Prisma.SortOrder
 }
 
 export type MessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   isImage?: Prisma.SortOrder
-  correction?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  correction?: Prisma.SortOrder
+  correctedById?: Prisma.SortOrder
 }
 
 export type MessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   isImage?: Prisma.SortOrder
-  correction?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  correction?: Prisma.SortOrder
+  correctedById?: Prisma.SortOrder
 }
 
 export type MessageSumOrderByAggregateInput = {
@@ -478,6 +507,7 @@ export type MessageSumOrderByAggregateInput = {
   parentId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
+  correctedById?: Prisma.SortOrder
 }
 
 export type MessageCreateNestedManyWithoutSenderInput = {
@@ -494,6 +524,13 @@ export type MessageCreateNestedManyWithoutReceiverInput = {
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
 }
 
+export type MessageCreateNestedManyWithoutCorrectedByInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput> | Prisma.MessageCreateWithoutCorrectedByInput[] | Prisma.MessageUncheckedCreateWithoutCorrectedByInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutCorrectedByInput | Prisma.MessageCreateOrConnectWithoutCorrectedByInput[]
+  createMany?: Prisma.MessageCreateManyCorrectedByInputEnvelope
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+}
+
 export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
   create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
   connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
@@ -505,6 +542,13 @@ export type MessageUncheckedCreateNestedManyWithoutReceiverInput = {
   create?: Prisma.XOR<Prisma.MessageCreateWithoutReceiverInput, Prisma.MessageUncheckedCreateWithoutReceiverInput> | Prisma.MessageCreateWithoutReceiverInput[] | Prisma.MessageUncheckedCreateWithoutReceiverInput[]
   connectOrCreate?: Prisma.MessageCreateOrConnectWithoutReceiverInput | Prisma.MessageCreateOrConnectWithoutReceiverInput[]
   createMany?: Prisma.MessageCreateManyReceiverInputEnvelope
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+}
+
+export type MessageUncheckedCreateNestedManyWithoutCorrectedByInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput> | Prisma.MessageCreateWithoutCorrectedByInput[] | Prisma.MessageUncheckedCreateWithoutCorrectedByInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutCorrectedByInput | Prisma.MessageCreateOrConnectWithoutCorrectedByInput[]
+  createMany?: Prisma.MessageCreateManyCorrectedByInputEnvelope
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
 }
 
@@ -536,6 +580,20 @@ export type MessageUpdateManyWithoutReceiverNestedInput = {
   deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
 }
 
+export type MessageUpdateManyWithoutCorrectedByNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput> | Prisma.MessageCreateWithoutCorrectedByInput[] | Prisma.MessageUncheckedCreateWithoutCorrectedByInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutCorrectedByInput | Prisma.MessageCreateOrConnectWithoutCorrectedByInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutCorrectedByInput | Prisma.MessageUpsertWithWhereUniqueWithoutCorrectedByInput[]
+  createMany?: Prisma.MessageCreateManyCorrectedByInputEnvelope
+  set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutCorrectedByInput | Prisma.MessageUpdateWithWhereUniqueWithoutCorrectedByInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutCorrectedByInput | Prisma.MessageUpdateManyWithWhereWithoutCorrectedByInput[]
+  deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
+}
+
 export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
   create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
   connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
@@ -561,6 +619,20 @@ export type MessageUncheckedUpdateManyWithoutReceiverNestedInput = {
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   update?: Prisma.MessageUpdateWithWhereUniqueWithoutReceiverInput | Prisma.MessageUpdateWithWhereUniqueWithoutReceiverInput[]
   updateMany?: Prisma.MessageUpdateManyWithWhereWithoutReceiverInput | Prisma.MessageUpdateManyWithWhereWithoutReceiverInput[]
+  deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
+}
+
+export type MessageUncheckedUpdateManyWithoutCorrectedByNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput> | Prisma.MessageCreateWithoutCorrectedByInput[] | Prisma.MessageUncheckedCreateWithoutCorrectedByInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutCorrectedByInput | Prisma.MessageCreateOrConnectWithoutCorrectedByInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutCorrectedByInput | Prisma.MessageUpsertWithWhereUniqueWithoutCorrectedByInput[]
+  createMany?: Prisma.MessageCreateManyCorrectedByInputEnvelope
+  set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutCorrectedByInput | Prisma.MessageUpdateWithWhereUniqueWithoutCorrectedByInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutCorrectedByInput | Prisma.MessageUpdateManyWithWhereWithoutCorrectedByInput[]
   deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
 }
 
@@ -625,23 +697,25 @@ export type MessageUncheckedUpdateManyWithoutParentMessageNestedInput = {
 export type MessageCreateWithoutSenderInput = {
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   createdAt?: Date | string
+  correction?: string | null
   parentMessage?: Prisma.MessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.MessageCreateNestedManyWithoutParentMessageInput
   receiver: Prisma.UserCreateNestedOneWithoutReceivedMessagesInput
+  correctedBy?: Prisma.UserCreateNestedOneWithoutCorrectedMessagesInput
 }
 
 export type MessageUncheckedCreateWithoutSenderInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
   replies?: Prisma.MessageUncheckedCreateNestedManyWithoutParentMessageInput
 }
 
@@ -658,23 +732,25 @@ export type MessageCreateManySenderInputEnvelope = {
 export type MessageCreateWithoutReceiverInput = {
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   createdAt?: Date | string
+  correction?: string | null
   parentMessage?: Prisma.MessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.MessageCreateNestedManyWithoutParentMessageInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  correctedBy?: Prisma.UserCreateNestedOneWithoutCorrectedMessagesInput
 }
 
 export type MessageUncheckedCreateWithoutReceiverInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   senderId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
   replies?: Prisma.MessageUncheckedCreateNestedManyWithoutParentMessageInput
 }
 
@@ -685,6 +761,41 @@ export type MessageCreateOrConnectWithoutReceiverInput = {
 
 export type MessageCreateManyReceiverInputEnvelope = {
   data: Prisma.MessageCreateManyReceiverInput | Prisma.MessageCreateManyReceiverInput[]
+  skipDuplicates?: boolean
+}
+
+export type MessageCreateWithoutCorrectedByInput = {
+  content: string
+  isImage?: boolean
+  isPinned?: boolean
+  createdAt?: Date | string
+  correction?: string | null
+  parentMessage?: Prisma.MessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.MessageCreateNestedManyWithoutParentMessageInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  receiver: Prisma.UserCreateNestedOneWithoutReceivedMessagesInput
+}
+
+export type MessageUncheckedCreateWithoutCorrectedByInput = {
+  id?: number
+  content: string
+  isImage?: boolean
+  isPinned?: boolean
+  parentId?: number | null
+  senderId: number
+  receiverId: number
+  createdAt?: Date | string
+  correction?: string | null
+  replies?: Prisma.MessageUncheckedCreateNestedManyWithoutParentMessageInput
+}
+
+export type MessageCreateOrConnectWithoutCorrectedByInput = {
+  where: Prisma.MessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput>
+}
+
+export type MessageCreateManyCorrectedByInputEnvelope = {
+  data: Prisma.MessageCreateManyCorrectedByInput | Prisma.MessageCreateManyCorrectedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -711,12 +822,13 @@ export type MessageScalarWhereInput = {
   id?: Prisma.IntFilter<"Message"> | number
   content?: Prisma.StringFilter<"Message"> | string
   isImage?: Prisma.BoolFilter<"Message"> | boolean
-  correction?: Prisma.StringNullableFilter<"Message"> | string | null
   isPinned?: Prisma.BoolFilter<"Message"> | boolean
   parentId?: Prisma.IntNullableFilter<"Message"> | number | null
   senderId?: Prisma.IntFilter<"Message"> | number
   receiverId?: Prisma.IntFilter<"Message"> | number
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
+  correction?: Prisma.StringNullableFilter<"Message"> | string | null
+  correctedById?: Prisma.IntNullableFilter<"Message"> | number | null
 }
 
 export type MessageUpsertWithWhereUniqueWithoutReceiverInput = {
@@ -735,27 +847,45 @@ export type MessageUpdateManyWithWhereWithoutReceiverInput = {
   data: Prisma.XOR<Prisma.MessageUpdateManyMutationInput, Prisma.MessageUncheckedUpdateManyWithoutReceiverInput>
 }
 
+export type MessageUpsertWithWhereUniqueWithoutCorrectedByInput = {
+  where: Prisma.MessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.MessageUpdateWithoutCorrectedByInput, Prisma.MessageUncheckedUpdateWithoutCorrectedByInput>
+  create: Prisma.XOR<Prisma.MessageCreateWithoutCorrectedByInput, Prisma.MessageUncheckedCreateWithoutCorrectedByInput>
+}
+
+export type MessageUpdateWithWhereUniqueWithoutCorrectedByInput = {
+  where: Prisma.MessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.MessageUpdateWithoutCorrectedByInput, Prisma.MessageUncheckedUpdateWithoutCorrectedByInput>
+}
+
+export type MessageUpdateManyWithWhereWithoutCorrectedByInput = {
+  where: Prisma.MessageScalarWhereInput
+  data: Prisma.XOR<Prisma.MessageUpdateManyMutationInput, Prisma.MessageUncheckedUpdateManyWithoutCorrectedByInput>
+}
+
 export type MessageCreateWithoutRepliesInput = {
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   createdAt?: Date | string
+  correction?: string | null
   parentMessage?: Prisma.MessageCreateNestedOneWithoutRepliesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   receiver: Prisma.UserCreateNestedOneWithoutReceivedMessagesInput
+  correctedBy?: Prisma.UserCreateNestedOneWithoutCorrectedMessagesInput
 }
 
 export type MessageUncheckedCreateWithoutRepliesInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   senderId: number
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
 }
 
 export type MessageCreateOrConnectWithoutRepliesInput = {
@@ -766,23 +896,25 @@ export type MessageCreateOrConnectWithoutRepliesInput = {
 export type MessageCreateWithoutParentMessageInput = {
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   createdAt?: Date | string
+  correction?: string | null
   replies?: Prisma.MessageCreateNestedManyWithoutParentMessageInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   receiver: Prisma.UserCreateNestedOneWithoutReceivedMessagesInput
+  correctedBy?: Prisma.UserCreateNestedOneWithoutCorrectedMessagesInput
 }
 
 export type MessageUncheckedCreateWithoutParentMessageInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   senderId: number
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
   replies?: Prisma.MessageUncheckedCreateNestedManyWithoutParentMessageInput
 }
 
@@ -810,24 +942,26 @@ export type MessageUpdateToOneWithWhereWithoutRepliesInput = {
 export type MessageUpdateWithoutRepliesInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentMessage?: Prisma.MessageUpdateOneWithoutRepliesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+  correctedBy?: Prisma.UserUpdateOneWithoutCorrectedMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateWithoutRepliesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type MessageUpsertWithWhereUniqueWithoutParentMessageInput = {
@@ -850,44 +984,60 @@ export type MessageCreateManySenderInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
 }
 
 export type MessageCreateManyReceiverInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   parentId?: number | null
   senderId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
+}
+
+export type MessageCreateManyCorrectedByInput = {
+  id?: number
+  content: string
+  isImage?: boolean
+  isPinned?: boolean
+  parentId?: number | null
+  senderId: number
+  receiverId: number
+  createdAt?: Date | string
+  correction?: string | null
 }
 
 export type MessageUpdateWithoutSenderInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentMessage?: Prisma.MessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.MessageUpdateManyWithoutParentMessageNestedInput
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+  correctedBy?: Prisma.UserUpdateOneWithoutCorrectedMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateWithoutSenderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   replies?: Prisma.MessageUncheckedUpdateManyWithoutParentMessageNestedInput
 }
 
@@ -895,33 +1045,36 @@ export type MessageUncheckedUpdateManyWithoutSenderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type MessageUpdateWithoutReceiverInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   parentMessage?: Prisma.MessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.MessageUpdateManyWithoutParentMessageNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  correctedBy?: Prisma.UserUpdateOneWithoutCorrectedMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateWithoutReceiverInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   replies?: Prisma.MessageUncheckedUpdateManyWithoutParentMessageNestedInput
 }
 
@@ -929,44 +1082,85 @@ export type MessageUncheckedUpdateManyWithoutReceiverInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type MessageUpdateWithoutCorrectedByInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentMessage?: Prisma.MessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.MessageUpdateManyWithoutParentMessageNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+}
+
+export type MessageUncheckedUpdateWithoutCorrectedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  receiverId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.MessageUncheckedUpdateManyWithoutParentMessageNestedInput
+}
+
+export type MessageUncheckedUpdateManyWithoutCorrectedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  receiverId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type MessageCreateManyParentMessageInput = {
   id?: number
   content: string
   isImage?: boolean
-  correction?: string | null
   isPinned?: boolean
   senderId: number
   receiverId: number
   createdAt?: Date | string
+  correction?: string | null
+  correctedById?: number | null
 }
 
 export type MessageUpdateWithoutParentMessageInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.MessageUpdateManyWithoutParentMessageNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+  correctedBy?: Prisma.UserUpdateOneWithoutCorrectedMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateWithoutParentMessageInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   replies?: Prisma.MessageUncheckedUpdateManyWithoutParentMessageNestedInput
 }
 
@@ -974,11 +1168,12 @@ export type MessageUncheckedUpdateManyWithoutParentMessageInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isImage?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderId?: Prisma.IntFieldUpdateOperationsInput | number
   receiverId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  correction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1016,16 +1211,18 @@ export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   content?: boolean
   isImage?: boolean
-  correction?: boolean
   isPinned?: boolean
   parentId?: boolean
   senderId?: boolean
   receiverId?: boolean
   createdAt?: boolean
+  correction?: boolean
+  correctedById?: boolean
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   replies?: boolean | Prisma.Message$repliesArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
   _count?: boolean | Prisma.MessageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
@@ -1033,61 +1230,69 @@ export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   content?: boolean
   isImage?: boolean
-  correction?: boolean
   isPinned?: boolean
   parentId?: boolean
   senderId?: boolean
   receiverId?: boolean
   createdAt?: boolean
+  correction?: boolean
+  correctedById?: boolean
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   content?: boolean
   isImage?: boolean
-  correction?: boolean
   isPinned?: boolean
   parentId?: boolean
   senderId?: boolean
   receiverId?: boolean
   createdAt?: boolean
+  correction?: boolean
+  correctedById?: boolean
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectScalar = {
   id?: boolean
   content?: boolean
   isImage?: boolean
-  correction?: boolean
   isPinned?: boolean
   parentId?: boolean
   senderId?: boolean
   receiverId?: boolean
   createdAt?: boolean
+  correction?: boolean
+  correctedById?: boolean
 }
 
-export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "isImage" | "correction" | "isPinned" | "parentId" | "senderId" | "receiverId" | "createdAt", ExtArgs["result"]["message"]>
+export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "isImage" | "isPinned" | "parentId" | "senderId" | "receiverId" | "createdAt" | "correction" | "correctedById", ExtArgs["result"]["message"]>
 export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   replies?: boolean | Prisma.Message$repliesArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
   _count?: boolean | Prisma.MessageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
 }
 export type MessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parentMessage?: boolean | Prisma.Message$parentMessageArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  correctedBy?: boolean | Prisma.Message$correctedByArgs<ExtArgs>
 }
 
 export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1097,17 +1302,19 @@ export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     replies: Prisma.$MessagePayload<ExtArgs>[]
     sender: Prisma.$UserPayload<ExtArgs>
     receiver: Prisma.$UserPayload<ExtArgs>
+    correctedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     content: string
     isImage: boolean
-    correction: string | null
     isPinned: boolean
     parentId: number | null
     senderId: number
     receiverId: number
     createdAt: Date
+    correction: string | null
+    correctedById: number | null
   }, ExtArgs["result"]["message"]>
   composites: {}
 }
@@ -1506,6 +1713,7 @@ export interface Prisma__MessageClient<T, Null = never, ExtArgs extends runtime.
   replies<T extends Prisma.Message$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Message$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   receiver<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  correctedBy<T extends Prisma.Message$correctedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Message$correctedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1538,12 +1746,13 @@ export interface MessageFieldRefs {
   readonly id: Prisma.FieldRef<"Message", 'Int'>
   readonly content: Prisma.FieldRef<"Message", 'String'>
   readonly isImage: Prisma.FieldRef<"Message", 'Boolean'>
-  readonly correction: Prisma.FieldRef<"Message", 'String'>
   readonly isPinned: Prisma.FieldRef<"Message", 'Boolean'>
   readonly parentId: Prisma.FieldRef<"Message", 'Int'>
   readonly senderId: Prisma.FieldRef<"Message", 'Int'>
   readonly receiverId: Prisma.FieldRef<"Message", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Message", 'DateTime'>
+  readonly correction: Prisma.FieldRef<"Message", 'String'>
+  readonly correctedById: Prisma.FieldRef<"Message", 'Int'>
 }
     
 
@@ -1985,6 +2194,25 @@ export type Message$repliesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * Message.correctedBy
+ */
+export type Message$correctedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

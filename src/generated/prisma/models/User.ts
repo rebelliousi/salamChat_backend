@@ -302,6 +302,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
+  correctedMessages?: Prisma.MessageListRelationFilter
   blockedUsers?: Prisma.BlockListRelationFilter
   blockedBy?: Prisma.BlockListRelationFilter
 }
@@ -324,6 +325,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   sentMessages?: Prisma.MessageOrderByRelationAggregateInput
   receivedMessages?: Prisma.MessageOrderByRelationAggregateInput
+  correctedMessages?: Prisma.MessageOrderByRelationAggregateInput
   blockedUsers?: Prisma.BlockOrderByRelationAggregateInput
   blockedBy?: Prisma.BlockOrderByRelationAggregateInput
 }
@@ -349,6 +351,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
+  correctedMessages?: Prisma.MessageListRelationFilter
   blockedUsers?: Prisma.BlockListRelationFilter
   blockedBy?: Prisma.BlockListRelationFilter
 }, "id" | "username" | "phoneNumber">
@@ -414,6 +417,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockCreateNestedManyWithoutBlockedInput
 }
@@ -436,6 +440,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
 }
@@ -457,6 +462,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
 }
@@ -479,6 +485,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUncheckedUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
@@ -605,6 +612,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -649,6 +661,12 @@ export type UserCreateNestedOneWithoutReceivedMessagesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutCorrectedMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCorrectedMessagesInput, Prisma.UserUncheckedCreateWithoutCorrectedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCorrectedMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
@@ -663,6 +681,16 @@ export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutReceivedMessagesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+}
+
+export type UserUpdateOneWithoutCorrectedMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCorrectedMessagesInput, Prisma.UserUncheckedCreateWithoutCorrectedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCorrectedMessagesInput
+  upsert?: Prisma.UserUpsertWithoutCorrectedMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCorrectedMessagesInput, Prisma.UserUpdateWithoutCorrectedMessagesInput>, Prisma.UserUncheckedUpdateWithoutCorrectedMessagesInput>
 }
 
 export type UserCreateNestedOneWithoutBlockedUsersInput = {
@@ -709,6 +737,7 @@ export type UserCreateWithoutSentMessagesInput = {
   isVerified?: boolean
   createdAt?: Date | string
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockCreateNestedManyWithoutBlockedInput
 }
@@ -730,6 +759,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   isVerified?: boolean
   createdAt?: Date | string
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
 }
@@ -755,6 +785,7 @@ export type UserCreateWithoutReceivedMessagesInput = {
   isVerified?: boolean
   createdAt?: Date | string
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  correctedMessages?: Prisma.MessageCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockCreateNestedManyWithoutBlockedInput
 }
@@ -776,6 +807,7 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   isVerified?: boolean
   createdAt?: Date | string
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  correctedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
   blockedBy?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
 }
@@ -783,6 +815,54 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
 export type UserCreateOrConnectWithoutReceivedMessagesInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+}
+
+export type UserCreateWithoutCorrectedMessagesInput = {
+  username?: string | null
+  phoneNumber: string
+  name: string
+  bio?: string | null
+  age?: number | null
+  gender?: string | null
+  nativeLanguage: string
+  targetLanguage: string
+  level: string
+  avatarUrl?: string | null
+  isOnline?: boolean
+  lastSeen?: Date | string
+  isVerified?: boolean
+  createdAt?: Date | string
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  blockedUsers?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blockedBy?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+}
+
+export type UserUncheckedCreateWithoutCorrectedMessagesInput = {
+  id?: number
+  username?: string | null
+  phoneNumber: string
+  name: string
+  bio?: string | null
+  age?: number | null
+  gender?: string | null
+  nativeLanguage: string
+  targetLanguage: string
+  level: string
+  avatarUrl?: string | null
+  isOnline?: boolean
+  lastSeen?: Date | string
+  isVerified?: boolean
+  createdAt?: Date | string
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  blockedUsers?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blockedBy?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+}
+
+export type UserCreateOrConnectWithoutCorrectedMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCorrectedMessagesInput, Prisma.UserUncheckedCreateWithoutCorrectedMessagesInput>
 }
 
 export type UserUpsertWithoutSentMessagesInput = {
@@ -812,6 +892,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
 }
@@ -833,6 +914,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUncheckedUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
@@ -864,6 +946,7 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  correctedMessages?: Prisma.MessageUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
 }
@@ -885,6 +968,61 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  correctedMessages?: Prisma.MessageUncheckedUpdateManyWithoutCorrectedByNestedInput
+  blockedUsers?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blockedBy?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserUpsertWithoutCorrectedMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCorrectedMessagesInput, Prisma.UserUncheckedUpdateWithoutCorrectedMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCorrectedMessagesInput, Prisma.UserUncheckedCreateWithoutCorrectedMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCorrectedMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCorrectedMessagesInput, Prisma.UserUncheckedUpdateWithoutCorrectedMessagesInput>
+}
+
+export type UserUpdateWithoutCorrectedMessagesInput = {
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nativeLanguage?: Prisma.StringFieldUpdateOperationsInput | string
+  targetLanguage?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeen?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  blockedUsers?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blockedBy?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCorrectedMessagesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nativeLanguage?: Prisma.StringFieldUpdateOperationsInput | string
+  targetLanguage?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeen?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   blockedUsers?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
   blockedBy?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
@@ -906,6 +1044,7 @@ export type UserCreateWithoutBlockedUsersInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageCreateNestedManyWithoutCorrectedByInput
   blockedBy?: Prisma.BlockCreateNestedManyWithoutBlockedInput
 }
 
@@ -927,6 +1066,7 @@ export type UserUncheckedCreateWithoutBlockedUsersInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutCorrectedByInput
   blockedBy?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
@@ -952,6 +1092,7 @@ export type UserCreateWithoutBlockedByInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockCreateNestedManyWithoutBlockerInput
 }
 
@@ -973,6 +1114,7 @@ export type UserUncheckedCreateWithoutBlockedByInput = {
   createdAt?: Date | string
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  correctedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutCorrectedByInput
   blockedUsers?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
 }
 
@@ -1009,6 +1151,7 @@ export type UserUpdateWithoutBlockedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUpdateManyWithoutCorrectedByNestedInput
   blockedBy?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
 }
 
@@ -1030,6 +1173,7 @@ export type UserUncheckedUpdateWithoutBlockedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUncheckedUpdateManyWithoutCorrectedByNestedInput
   blockedBy?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
@@ -1061,6 +1205,7 @@ export type UserUpdateWithoutBlockedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
 }
 
@@ -1082,6 +1227,7 @@ export type UserUncheckedUpdateWithoutBlockedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  correctedMessages?: Prisma.MessageUncheckedUpdateManyWithoutCorrectedByNestedInput
   blockedUsers?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
 }
 
@@ -1093,6 +1239,7 @@ export type UserUncheckedUpdateWithoutBlockedByInput = {
 export type UserCountOutputType = {
   sentMessages: number
   receivedMessages: number
+  correctedMessages: number
   blockedUsers: number
   blockedBy: number
 }
@@ -1100,6 +1247,7 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
+  correctedMessages?: boolean | UserCountOutputTypeCountCorrectedMessagesArgs
   blockedUsers?: boolean | UserCountOutputTypeCountBlockedUsersArgs
   blockedBy?: boolean | UserCountOutputTypeCountBlockedByArgs
 }
@@ -1125,6 +1273,13 @@ export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Typ
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCorrectedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MessageWhereInput
 }
 
@@ -1161,6 +1316,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  correctedMessages?: boolean | Prisma.User$correctedMessagesArgs<ExtArgs>
   blockedUsers?: boolean | Prisma.User$blockedUsersArgs<ExtArgs>
   blockedBy?: boolean | Prisma.User$blockedByArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1224,6 +1380,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  correctedMessages?: boolean | Prisma.User$correctedMessagesArgs<ExtArgs>
   blockedUsers?: boolean | Prisma.User$blockedUsersArgs<ExtArgs>
   blockedBy?: boolean | Prisma.User$blockedByArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1236,6 +1393,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sentMessages: Prisma.$MessagePayload<ExtArgs>[]
     receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
+    correctedMessages: Prisma.$MessagePayload<ExtArgs>[]
     blockedUsers: Prisma.$BlockPayload<ExtArgs>[]
     blockedBy: Prisma.$BlockPayload<ExtArgs>[]
   }
@@ -1651,6 +1809,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  correctedMessages<T extends Prisma.User$correctedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$correctedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   blockedUsers<T extends Prisma.User$blockedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   blockedBy<T extends Prisma.User$blockedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2117,6 +2276,30 @@ export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.Inter
  * User.receivedMessages
  */
 export type User$receivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.correctedMessages
+ */
+export type User$correctedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Message
    */
