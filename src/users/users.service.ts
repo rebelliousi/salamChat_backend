@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateProfileDto } from 'src/dto/update-profile.dto';
 import { MatchFilterDto } from 'src/dto/match-filter.dto';
@@ -23,6 +28,53 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id: userId },
       data: { avatarUrl },
+    });
+  }
+
+  async blockUser(blockerId: number, blockedId: number) {
+    if (blockerId === blockedId) {
+      throw new BadRequestException('You cannot block yourself');
+    }
+
+    try {
+      return await this.prisma.block.create({
+        data: { blockerId, blockedId },
+      });
+    } catch (err) {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === 'P2002'
+      ) {
+        throw new ConflictException('You have already blocked this user');
+      }
+      throw err;
+    }
+  }
+
+  async unblockUser(blockerId: number, blockedId: number) {
+    try {
+      return await this.prisma.block.delete({
+        where: {
+          blockerId_blockedId: { blockerId, blockedId },
+        },
+      });
+    } catch (err) {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === 'P2025'
+      ) {
+        throw new NotFoundException('You have not blocked this user');
+      }
+      throw err;
+    }
+  }
+  async reportUser(reporterId: number, reportedId: number, reason: string) {
+    if (reporterId === reportedId) {
+      throw new BadRequestException('You cannot report yourself');
+    }
+
+    return this.prisma.report.create({
+      data: { reporterId, reportedId, reason },
     });
   }
 
