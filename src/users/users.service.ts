@@ -83,8 +83,17 @@ export class UsersService {
 
     if (!user) return [];
 
+    const blockedUsers = await this.prisma.block.findMany({
+      where: { blockerId: userId },
+      select: { blockedId: true },
+    });
+    const blockedIds = blockedUsers.map((b) => b.blockedId);
+
     const whereClause: Prisma.UserWhereInput = {
-      id: { not: userId },
+      id: {
+        not: userId,
+        notIn: blockedIds,
+      },
       isVerified: true,
     };
 
