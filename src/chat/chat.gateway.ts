@@ -11,6 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import './socket.types';
 
 interface JwtPayload {
   userId: number;
@@ -83,18 +84,21 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('sendMessage')
   async handleMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: { receiverId: number; content: string },
+    @MessageBody()
+    data: { receiverId: number; content: string; parentId?: number },
   ) {
     if (!client.user) {
       client.emit('auth_error', { message: 'Not authenticated' });
       return;
     }
+
     const senderId = client.user.userId;
 
     const message = await this.chatService.saveMessage(
       senderId,
       data.receiverId,
       data.content,
+      data.parentId,
     );
 
     this.server.to(`user_${data.receiverId}`).emit('newMessage', message);
