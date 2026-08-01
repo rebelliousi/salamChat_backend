@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { VerifyOtpDto } from '../dto/verify-otp.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -14,13 +15,18 @@ export class AuthService {
     private prisma: PrismaService,
     private redis: RedisService,
     private jwt: JwtService,
+    private mailService: MailService,
   ) {}
 
-  async sendOtp(phoneNumber: string) {
+  async sendOtp(email: string) {
     const code = Math.floor(1000 + Math.random() * 9000).toString();
-    await this.redis.setOTP(phoneNumber, code);
-    console.log(`[OTP] ${phoneNumber} for code : ${code}`);
-    return { message: 'OTP was sent' };
+
+    await this.redis.setOTP(email, code);
+
+    await this.mailService.sendOtpEmail(email, code);
+
+    console.log(`[OTP] ${email} için gönderilen kod: ${code}`);
+    return { message: 'OTP was sent to your email' };
   }
 
   async getTokens(userId: number) {
@@ -35,14 +41,15 @@ export class AuthService {
   }
 
   async verifyOtp(dto: VerifyOtpDto) {
-    const { phoneNumber, otpCode, ...userData } = dto;
-    const savedOtp = await this.redis.getOTP(phoneNumber);
+    const { email, otpCode, ...userData } = dto;
+
+    const savedOtp = await this.redis.getOTP(email);
 
     if (!savedOtp || savedOtp !== otpCode) {
-      throw new UnauthorizedException('code is wrong');
+      throw new UnauthorizedException('Code is wrong or expired');
     }
 
-    let user = await this.prisma.user.findUnique({ where: { phoneNumber } });
+    let user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) {
       if (
@@ -55,9 +62,10 @@ export class AuthService {
           'Profile information is required for new users',
         );
       }
+
       user = await this.prisma.user.create({
         data: {
-          phoneNumber,
+          email,
           name: userData.name,
           nativeLanguage: userData.nativeLanguage,
           targetLanguage: userData.targetLanguage,
@@ -70,7 +78,8 @@ export class AuthService {
       });
     }
 
-    await this.redis.deleteOTP(phoneNumber);
+    await this.redis.deleteOTP(email);
+
     const tokens = await this.getTokens(user.id);
     return { user, ...tokens };
   }

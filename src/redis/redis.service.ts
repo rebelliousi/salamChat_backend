@@ -1,14 +1,17 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Redis } from 'ioredis';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
   private client: Redis;
 
+  constructor(private configService: ConfigService) {}
+
   onModuleInit() {
     this.client = new Redis({
-      host: 'localhost',
-      port: 6380,
+      host: this.configService.get('REDIS_HOST') || 'localhost',
+      port: this.configService.get<number>('REDIS_PORT') || 6380,
     });
   }
 
@@ -16,16 +19,16 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     this.client.disconnect();
   }
 
-  async setOTP(phoneNumber: string, code: string) {
-    await this.client.set(`otp:${phoneNumber}`, code, 'EX', 120);
+  async setOTP(email: string, code: string) {
+    await this.client.set(`otp:${email}`, code, 'EX', 120);
   }
 
-  async getOTP(phoneNumber: string): Promise<string | null> {
-    return await this.client.get(`otp:${phoneNumber}`);
+  async getOTP(email: string): Promise<string | null> {
+    return await this.client.get(`otp:${email}`);
   }
 
-  async deleteOTP(phoneNumber: string) {
-    await this.client.del(`otp:${phoneNumber}`);
+  async deleteOTP(email: string) {
+    await this.client.del(`otp:${email}`);
   }
 
   async saveRefreshToken(userId: string, token: string) {

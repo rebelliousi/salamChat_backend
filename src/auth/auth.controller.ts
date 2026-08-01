@@ -7,8 +7,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('send-otp')
-  sendOtp(@Body('phoneNumber') phoneNumber: string) {
-    return this.authService.sendOtp(phoneNumber);
+  sendOtp(@Body('email') email: string) {
+    return this.authService.sendOtp(email);
   }
 
   @Post('verify-otp')
