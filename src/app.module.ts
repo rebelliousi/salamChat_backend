@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { RedisModule } from './redis/redis.module';
 import { ChatModule } from './chat/chat.module';
 import { MailModule } from './mail/mail.module';
+import { S3Service } from './s3/s3.service';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { MailModule } from './mail/mail.module';
     RedisModule,
     ChatModule,
     MailModule,
+    S3Module,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, S3Service],
 })
 export class AppModule {}
