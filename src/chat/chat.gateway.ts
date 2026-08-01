@@ -101,7 +101,18 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       data.parentId,
     );
 
-    this.server.to(`user_${data.receiverId}`).emit('newMessage', message);
+    const isBlocked = await this.prisma.block.findUnique({
+      where: {
+        blockerId_blockedId: {
+          blockerId: data.receiverId,
+          blockedId: senderId,
+        },
+      },
+    });
+
+    if (!isBlocked) {
+      this.server.to(`user_${data.receiverId}`).emit('newMessage', message);
+    }
 
     return message;
   }

@@ -17,6 +17,8 @@ import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateProfileDto } from 'src/dto/update-profile.dto';
 import { MatchFilterDto } from 'src/dto/match-filter.dto';
+import { ReportUserDto } from 'src/dto/report-user.dto';
+import { BlockUserDto } from 'src/dto/block-user.dto';
 
 interface AuthenticatedRequest {
   user: {
@@ -69,5 +71,24 @@ export class UsersController {
     @Query() filters: MatchFilterDto,
   ) {
     return this.usersService.findMatches(req.user.userId, filters);
+  }
+
+  @Post('block')
+  blockUser(@Request() req: AuthenticatedRequest, @Body() dto: BlockUserDto) {
+    return this.usersService.blockUser(req.user.userId, dto.blockedId);
+  }
+
+  @Post('unblock')
+  unblockUser(@Request() req: AuthenticatedRequest, @Body() dto: BlockUserDto) {
+    return this.usersService.unblockUser(req.user.userId, dto.blockedId);
+  }
+
+  @Post('report')
+  reportUser(@Request() req: AuthenticatedRequest, @Body() dto: ReportUserDto) {
+    return this.usersService.reportUser(
+      req.user.userId,
+      dto.reportedId,
+      dto.reason,
+    );
   }
 }
