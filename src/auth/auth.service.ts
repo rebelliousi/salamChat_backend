@@ -25,7 +25,6 @@ export class AuthService {
 
     await this.mailService.sendOtpEmail(email, code);
 
-    console.log(`[OTP] ${email} için gönderilen kod: ${code}`);
     return { message: 'OTP was sent to your email' };
   }
 
