@@ -106,4 +106,18 @@ export class ChatService {
       },
     });
   }
+
+  async markAsDelivered(messageId: number) {
+    return this.prisma.message.update({
+      where: { id: messageId },
+      data: { deliveredAt: new Date() },
+    });
+  }
+
+  async markAsRead(messageId: number) {
+    return this.prisma.message.update({
+      where: { id: messageId },
+      data: { readAt: new Date() },
+    });
+  }
 }
