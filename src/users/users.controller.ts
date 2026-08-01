@@ -11,14 +11,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateProfileDto } from 'src/dto/update-profile.dto';
 import { MatchFilterDto } from 'src/dto/match-filter.dto';
 import { ReportUserDto } from 'src/dto/report-user.dto';
 import { BlockUserDto } from 'src/dto/block-user.dto';
+import { S3Service } from '../s3/s3.service';
 
 interface AuthenticatedRequest {
   user: {
@@ -29,7 +28,10 @@ interface AuthenticatedRequest {
 @Controller('users')
 @UseGuards(JwtAuthGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly s3Service: S3Service,
+  ) {}
 
   @Get('me')
   getMe(@Request() req: AuthenticatedRequest) {
@@ -45,23 +47,13 @@ export class UsersController {
   }
 
   @Post('upload-avatar')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, `avatar-${uniqueSuffix}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  uploadAvatar(
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadAvatar(
     @Request() req: AuthenticatedRequest,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const avatarUrl = `/uploads/${file.filename}`;
+    const avatarUrl = await this.s3Service.uploadFile(file, 'avatars');
+
     return this.usersService.updateAvatar(req.user.userId, avatarUrl);
   }
 
