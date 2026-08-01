@@ -56,6 +56,8 @@ model Message {
 
   correctedById Int?
   correctedBy   User? @relation("MessageCorrections", fields: [correctedById], references: [id])
+  deliveredAt DateTime?
+  readAt      DateTime?
 }
 model Block {
   id          Int      @id @default(autoincrement())

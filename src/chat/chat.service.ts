@@ -15,19 +15,6 @@ export class ChatService {
     content: string,
     parentId?: number,
   ) {
-    const isBlocked = await this.prisma.block.findUnique({
-      where: {
-        blockerId_blockedId: {
-          blockerId: receiverId,
-          blockedId: senderId,
-        },
-      },
-    });
-
-    if (isBlocked) {
-      throw new ForbiddenException('You cannot message this user');
-    }
-
     return this.prisma.message.create({
       data: {
         senderId,
