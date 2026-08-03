@@ -28,13 +28,11 @@ export class MailService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Inter fontu modern UI'ın kalbidir -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
       </head>
       <body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; -webkit-font-smoothing: antialiased;">
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px; margin: 0 auto; padding: 60px 24px;">
           
-          <!-- Logo Section -->
           <tr>
             <td style="padding-bottom: 48px;">
               <table border="0" cellpadding="0" cellspacing="0">
@@ -59,7 +57,6 @@ export class MailService {
             </td>
           </tr>
 
-          <!-- Heading -->
           <tr>
             <td>
               <h2 style="font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 20px 0; color: #000000;">Confirm your email address</h2>
@@ -69,7 +66,6 @@ export class MailService {
             </td>
           </tr>
 
-          <!-- OTP Code Box -->
           <tr>
             <td>
               <div style="background-color: #F3F4F6; border-radius: 16px; padding: 32px; text-align: center;">
@@ -81,14 +77,12 @@ export class MailService {
             </td>
           </tr>
 
-          <!-- Footer Divider -->
           <tr>
             <td style="padding-top: 60px;">
               <div style="height: 1px; width: 100%; background-color: #EEEEEE;"></div>
             </td>
           </tr>
 
-          <!-- Footer Content -->
           <tr>
             <td style="padding-top: 24px;">
               <p style="font-size: 13px; color: #999999; margin: 0; line-height: 1.5;">
