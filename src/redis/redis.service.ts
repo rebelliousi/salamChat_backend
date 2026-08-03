@@ -17,7 +17,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async setOTP(email: string, code: string) {
-    await this.client.set(`otp:${email}`, code, 'EX', 120);
+    await this.client.set(`otp:${email}`, code, 'EX', 300);
   }
 
   async getOTP(email: string): Promise<string | null> {
